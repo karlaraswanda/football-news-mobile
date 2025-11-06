@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:football_news/widgets/left_drawer.dart';
+import 'package:football_news/widgets/news_card.dart';
 
-// Kelas utama MyHomePage
 class MyHomePage extends StatelessWidget {
-  final String nama = "Karla Ameera Raswanda"; // nama
-  final String npm = "2406414542"; // npm
-  final String kelas = "E"; // kelas
+  final String nama = "Karla Ameera Raswanda";
+  final String npm = "2406414542";
+  final String kelas = "E";
 
-  // Daftar menu
   final List<ItemHomepage> items = [
     ItemHomepage("See Football News", Icons.newspaper),
     ItemHomepage("Add News", Icons.add),
@@ -19,10 +19,16 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Menu'),
+        title: const Text(
+          'Football News',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Colors.white,
       ),
+      drawer: const LeftDrawer(),
       body: Column(
         children: [
           const SizedBox(height: 16),
@@ -37,7 +43,7 @@ class MyHomePage extends StatelessWidget {
           // ),
           Row(
             children: [
-              Expanded(child: InfoCard(title: 'NPM',  content: npm)),
+              Expanded(child: InfoCard(title: 'NPM', content: npm)),
               const SizedBox(width: 12),
               Expanded(child: InfoCard(title: 'Name', content: nama)),
               const SizedBox(width: 12),
@@ -45,7 +51,19 @@ class MyHomePage extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 24),
-          // Grid Menu
+          const Center(
+            child: Padding(
+              padding: EdgeInsets.only(top: 8.0, bottom: 8.0),
+              child: Text(
+                'Selamat datang di Football News',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18.0,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
           Expanded(
             child: GridView.count(
               primary: false,
@@ -54,7 +72,7 @@ class MyHomePage extends StatelessWidget {
               mainAxisSpacing: 10,
               crossAxisCount: 3,
               children: items.map((item) {
-                return ItemCard(item);
+                return ItemCard(name: item.name, icon: item.icon);
               }).toList(),
             ),
           ),
@@ -64,44 +82,12 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-// Model data item
 class ItemHomepage {
   final String name;
   final IconData icon;
 
   ItemHomepage(this.name, this.icon);
 }
-
-// Widget InfoCard
-// class InfoCard extends StatelessWidget {
-//   final String title;
-//   final String content;
-
-//   const InfoCard({super.key, required this.title, required this.content});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       color: Theme.of(context).colorScheme.surface,
-//       elevation: 4,
-//       child: Container(
-//         width: 100,
-//         height: 80,
-//         alignment: Alignment.center,
-//         padding: const EdgeInsets.all(8),
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: [
-//             Text(title,
-//                 style: const TextStyle(fontWeight: FontWeight.bold)),
-//             const SizedBox(height: 4),
-//             Text(content),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
 
 class InfoCard extends StatelessWidget {
   final String title;
@@ -128,39 +114,6 @@ class InfoCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-// Widget ItemCard
-class ItemCard extends StatelessWidget {
-  final ItemHomepage item;
-
-  const ItemCard(this.item, {super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Theme.of(context).colorScheme.secondaryContainer,
-      child: InkWell(
-        onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text("Kamu menekan tombol ${item.name}"),
-            ),
-          );
-        },
-        child: Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(item.icon, size: 40.0),
-              const SizedBox(height: 10),
-              Text(item.name),
-            ],
-          ),
         ),
       ),
     );
