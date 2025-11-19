@@ -33,14 +33,6 @@ class MyHomePage extends StatelessWidget {
         children: [
           const SizedBox(height: 16),
           // Row InfoCard
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //   children: [
-          //     InfoCard(title: 'NPM', content: npm),
-          //     InfoCard(title: 'Name', content: nama),
-          //     InfoCard(title: 'Class', content: kelas),
-          //   ],
-          // ),
           Row(
             children: [
               Expanded(child: InfoCard(title: 'NPM', content: npm)),
